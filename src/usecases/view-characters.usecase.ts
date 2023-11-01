@@ -1,13 +1,11 @@
-import { Character } from '../domain/character.model';
-
 export interface ViewCharactersPort {
-  viewCharacters(): Character[];
+  viewCharacters();
 }
 
 export class ViewCharacters<T extends ViewCharactersPort> {
   constructor(private readonly listCharactersService: T) {}
 
-  viewAllCharacters(): Character[] {
+  viewAllCharacters() {
     return this.listCharactersService.viewCharacters();
   }
 }

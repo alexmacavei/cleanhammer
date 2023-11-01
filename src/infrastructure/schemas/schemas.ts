@@ -1,20 +1,17 @@
 import * as mongoose from 'mongoose';
-import { Character } from 'src/domain/character.model';
 import { Item } from 'src/domain/item.model';
 import { Race } from 'src/domain/race.model';
 
-export const itemSchema = new mongoose.Schema({
+export const itemSchema = new mongoose.Schema<Item>({
   name: String,
   itemKind: String,
   worthInGold: Number,
 });
-itemSchema.loadClass(Item);
 
-export const raceSchema = new mongoose.Schema({
+export const raceSchema = new mongoose.Schema<Race>({
   mainRaceName: String,
   subrace: String,
 });
-raceSchema.loadClass(Race);
 
 export const characterSchema = new mongoose.Schema({
   race: raceSchema,
@@ -23,4 +20,3 @@ export const characterSchema = new mongoose.Schema({
   friends: [this],
   goldOwned: Number,
 });
-characterSchema.loadClass(Character);

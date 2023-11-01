@@ -1,11 +1,6 @@
-export class Race {
-  readonly mainRaceName: RaceName;
-  readonly subrace: string;
-
-  constructor(mainRaceName: RaceName, subrace: string) {
-    this.mainRaceName = mainRaceName;
-    this.subrace = subrace;
-  }
+export interface Race {
+  mainRaceName: RaceName;
+  subrace: string;
 }
 
 export enum RaceName {

@@ -10,4 +10,4 @@ import { ViewCharacters } from './view-characters.usecase';
   providers: [CreateCharacter, DismissCharacter, ViewCharacters],
   exports: [CreateCharacter, DismissCharacter, ViewCharacters],
 })
-export class UsecasesModule {}
+export class UseCasesModule {}

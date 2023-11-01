@@ -1,13 +1,7 @@
-export class Item {
-  readonly name: string;
-  readonly itemKind: ItemKind;
-  readonly worthInGold: number;
-
-  constructor(name, itemKind, worthInGold) {
-    this.name = name;
-    this.itemKind = itemKind;
-    this.worthInGold = worthInGold;
-  }
+export interface Item {
+  name: string;
+  itemKind: ItemKind;
+  worthInGold: number;
 }
 
 enum ItemKind {

@@ -1,6 +1,5 @@
 import * as mongoose from 'mongoose';
 import { CreateCharacterPort } from '../../../dist/usecases/create-character.usecase';
-import { Character } from '../../domain/character.model';
 import { characterSchema } from '../schemas/schemas';
 import { ViewCharactersPort } from '../../../dist/usecases/view-characters.usecase';
 
@@ -11,12 +10,12 @@ export class CharacterDb implements CreateCharacterPort, ViewCharactersPort {
     this.characterModel = mongoose.model('Character', characterSchema);
   }
 
-  createCharacter(c: Character) {
-    const model = new this.characterModel(c);
+  createCharacter(character) {
+    const model = new this.characterModel(character);
     return model.save();
   }
 
-  viewCharacters(): Character[] {
+  viewCharacters() {
     return this.characterModel.find().exec();
   }
 }

@@ -1,13 +1,11 @@
-import { Character } from '../domain/character.model';
-
 export interface CharacterDismissalPort {
-  dismissCharacter(characterToDismiss: Character): void;
+  dismissCharacter(characterToDismiss): void;
 }
 
 export class DismissCharacter<T extends CharacterDismissalPort> {
   constructor(private readonly dismissalService: T) {}
 
-  sendAwayCharacter(sadCharacter: Character) {
+  sendAwayCharacter(sadCharacter) {
     this.dismissalService.dismissCharacter(sadCharacter);
   }
 }

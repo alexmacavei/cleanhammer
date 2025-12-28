@@ -1,15 +1,20 @@
-import { Item } from '../domain/item.model';
 import { NotAcceptableException } from '@nestjs/common';
+import { Character } from '../domain/character.model';
+import { Item } from '../domain/item.model';
 
 export interface SellItemForPricePort {
-  sellItem(fromCharacter, toCharacter, soldItem: Item): boolean;
+  sellItem(
+    fromCharacter: Character,
+    toCharacter: Character,
+    soldItem: Item,
+  ): boolean;
 }
 
 export class SellItemForPrice<T extends SellItemForPricePort> {
   constructor(private readonly sellItemService: T) {}
   sellItem(
-    fromCharacter,
-    toCharacter,
+    fromCharacter: Character,
+    toCharacter: Character,
     itemOwnedByFromCharacter: Item,
   ): boolean {
     if (!fromCharacter.itemsOwned.includes(itemOwnedByFromCharacter)) {

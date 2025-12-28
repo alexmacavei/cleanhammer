@@ -1,22 +1,22 @@
-import * as mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 import { Item } from 'src/domain/item.model';
 import { Race } from 'src/domain/race.model';
 
-export const itemSchema = new mongoose.Schema<Item>({
+export const itemSchema = new Schema<Item>({
   name: String,
   itemKind: String,
   worthInGold: Number,
 });
 
-export const raceSchema = new mongoose.Schema<Race>({
+export const raceSchema = new Schema<Race>({
   mainRaceName: String,
   subrace: String,
 });
 
-export const characterSchema = new mongoose.Schema({
+export const characterSchema = new Schema({
   race: raceSchema,
   name: String,
   itemsOwned: [itemSchema],
-  friends: [this],
+  friends: [{ type: Schema.Types.ObjectId, ref: 'Character' }],
   goldOwned: Number,
 });

@@ -1,5 +1,7 @@
+import { Character } from '../domain/character.model';
+
 export interface CreateCharacterPort {
-  createCharacter(character): void;
+  createCharacter(character: Character): void;
 }
 
 export class CreateCharacter<T extends CreateCharacterPort> {
@@ -9,7 +11,7 @@ export class CreateCharacter<T extends CreateCharacterPort> {
     this.characterService = createPort;
   }
 
-  createCharacter(characterToCreate) {
+  createCharacter(characterToCreate: Character) {
     this.characterService.createCharacter(characterToCreate);
   }
 }

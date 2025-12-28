@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Character } from './domain/character.model';
 import { CharacterDb } from './infrastructure/characters/character-db';
 import { CreateCharacter } from './usecases/create-character.usecase';
 import { ViewCharacters } from './usecases/view-characters.usecase';
@@ -14,12 +15,12 @@ export class AppController {
   }
 
   @Post()
-  createCharacter(@Body() character) {
+  createCharacter(@Body() character: Character) {
     return this.createCharacterUseCase.createCharacter(character);
   }
 
   @Get()
-  getAll() {
+  getAll(): Promise<Character[]> {
     return this.viewCharactersUseCase.viewAllCharacters();
   }
 }

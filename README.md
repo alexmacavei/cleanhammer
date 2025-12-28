@@ -6,6 +6,15 @@
 
 This repo showcases a take at a simplistic Clean Architecture using NestJs and Typescript.
 
+**📋 [Read the Comprehensive Architecture Analysis](./ARCHITECTURE_ANALYSIS.md)**
+
+The project has been updated to **NestJS v11** and includes a detailed 800+ line analysis document covering:
+- Clean Architecture implementation analysis
+- 7 critical architectural issues with solutions
+- 7 clean code improvements with examples
+- Security, performance, and testing recommendations
+- Complete migration path with code examples
+
 ## Installation
 
 ```bash

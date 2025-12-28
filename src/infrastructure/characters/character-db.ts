@@ -1,10 +1,11 @@
+import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { CreateCharacterPort } from '../../../dist/usecases/create-character.usecase';
+import { CreateCharacterPort } from '../../usecases/create-character.usecase';
+import { ViewCharactersPort } from '../../usecases/view-characters.usecase';
 import { characterSchema } from '../schemas/schemas';
-import { ViewCharactersPort } from '../../../dist/usecases/view-characters.usecase';
 
 export class CharacterDb implements CreateCharacterPort, ViewCharactersPort {
-  private readonly characterModel;
+  private readonly characterModel: Model<any>;
 
   constructor() {
     this.characterModel = mongoose.model('Character', characterSchema);

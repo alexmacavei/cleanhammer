@@ -4,7 +4,7 @@ export interface Item {
   worthInGold: number;
 }
 
-enum ItemKind {
+export enum ItemKind {
   SWORD,
   HAMMER,
   BOW,

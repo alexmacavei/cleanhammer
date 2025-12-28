@@ -19,7 +19,7 @@ export function isGreenskinWithAtLeastANonGreenskinFriend(
   } = character;
   return (
     mainRaceName === RaceName.GREENSKIN &&
-    !!friends.find(f => f.race.mainRaceName !== RaceName.GREENSKIN)
+    !!friends.find((f) => f.race.mainRaceName !== RaceName.GREENSKIN)
   );
 }
 

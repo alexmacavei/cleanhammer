@@ -13,6 +13,8 @@ This document provides a comprehensive analysis of the CleanHammer project, a Ne
 - ✅ Removed framework dependencies from domain layer
 - ✅ Proper typing throughout the codebase (no 'any' types)
 
+**Note:** This analysis identifies architectural issues but intentionally does not fix them all. The goal is to update dependencies and document improvements for future work. The existing architectural issues serve as teaching examples and are fully documented below with recommended solutions.
+
 ---
 
 ## Table of Contents
@@ -715,6 +717,53 @@ Use AsyncLocalStorage or cls-hooked for request-scoped data (user, correlation I
 - Application Performance Monitoring (APM): New Relic, DataDog
 - Logging: Winston with structured logging
 - Metrics: Prometheus + Grafana
+
+---
+
+## What Was Fixed in This PR
+
+This PR focused on **modernizing the infrastructure** while preserving the existing architecture to serve as a learning example:
+
+### ✅ Completed:
+1. **Dependency Updates**
+   - NestJS v6 → v11.1.10
+   - Mongoose v5 → v9
+   - TypeScript v3 → v5.7
+   - All packages to latest versions
+   
+2. **Type Safety Improvements**
+   - Enabled strict TypeScript settings
+   - Removed all 'any' types
+   - Added proper type annotations
+   - Exported domain interfaces
+   
+3. **Domain Layer Cleanup**
+   - Removed NestJS exceptions from domain
+   - Created domain-specific InvalidCharacterError
+   - Made domain layer framework-agnostic
+
+4. **Build System Modernization**
+   - Migrated TSLint → ESLint v9
+   - Updated to Nest CLI build system
+   - Fixed all compilation errors
+   - Updated test configurations
+
+### ❌ Intentionally NOT Fixed:
+The following issues are **documented but not fixed** to serve as learning examples:
+
+1. **Dependency Injection**: Controllers still manually instantiate dependencies
+2. **Domain Validation**: Use cases don't call domain validation functions
+3. **DTOs**: No input validation or Data Transfer Objects
+4. **Framework Exceptions in Use Cases**: sell-item-for-price still uses NotAcceptableException
+5. **Infrastructure Coupling**: Schemas directly import domain types
+6. **Error Handling**: No global exception filters or proper error responses
+7. **Testing**: Minimal test coverage
+
+**Why not fix everything?**
+- These issues serve as teaching examples
+- Each issue is fully documented with solutions
+- Users can learn by implementing the fixes
+- Demonstrates the difference between working code and clean architecture
 
 ---
 

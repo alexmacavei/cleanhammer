@@ -1,18 +1,20 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Character } from './domain/character.model';
-import { CharacterDb } from './infrastructure/characters/character-db';
-import { CreateCharacter } from './usecases/create-character.usecase';
-import { ViewCharacters } from './usecases/view-characters.usecase';
+import {
+  CreateCharacter,
+  CreateCharacterPort,
+} from './usecases/create-character.usecase';
+import {
+  ViewCharacters,
+  ViewCharactersPort,
+} from './usecases/view-characters.usecase';
 
 @Controller()
 export class AppController {
-  private readonly createCharacterUseCase: CreateCharacter<CharacterDb>;
-  private readonly viewCharactersUseCase: ViewCharacters<CharacterDb>;
-
-  constructor() {
-    this.createCharacterUseCase = new CreateCharacter(new CharacterDb());
-    this.viewCharactersUseCase = new ViewCharacters(new CharacterDb());
-  }
+  constructor(
+    private readonly createCharacterUseCase: CreateCharacter<CreateCharacterPort>,
+    private readonly viewCharactersUseCase: ViewCharacters<ViewCharactersPort>,
+  ) {}
 
   @Post()
   createCharacter(@Body() character: Character) {

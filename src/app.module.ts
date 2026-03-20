@@ -10,7 +10,9 @@ import { UseCasesModule } from './usecases/usecases.module';
     DomainModule,
     UseCasesModule,
     InfrastructureModule,
-    MongooseModule.forRoot('mongodb://localhost:27017/cleanhammer'),
+    MongooseModule.forRoot(
+      process.env.DATABASE_URL || 'mongodb://localhost:27017/cleanhammer',
+    ),
   ],
   controllers: [AppController],
 })

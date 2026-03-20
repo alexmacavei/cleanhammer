@@ -1,4 +1,7 @@
-import { Character } from '../domain/character.model';
+import {
+  Character,
+  createCharacter as buildCharacter,
+} from '../domain/character.model';
 
 export interface CreateCharacterPort {
   createCharacter(character: Character): void;
@@ -12,6 +15,13 @@ export class CreateCharacter<T extends CreateCharacterPort> {
   }
 
   createCharacter(characterToCreate: Character) {
-    this.characterService.createCharacter(characterToCreate);
+    const character = buildCharacter(
+      characterToCreate.race,
+      characterToCreate.name,
+      characterToCreate.itemsOwned,
+      characterToCreate.friends ?? [],
+      characterToCreate.goldOwned,
+    );
+    this.characterService.createCharacter(character);
   }
 }

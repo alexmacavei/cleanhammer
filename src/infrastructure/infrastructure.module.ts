@@ -1,8 +1,13 @@
 import { Module } from '@nestjs/common';
-import { databaseProviders } from './database.providers';
+import { MongooseModule } from '@nestjs/mongoose';
+import { CharacterDb } from './characters/character-db';
+import { characterSchema } from './schemas/schemas';
 
 @Module({
-  providers: [...databaseProviders],
-  exports: [...databaseProviders],
+  imports: [
+    MongooseModule.forFeature([{ name: 'Character', schema: characterSchema }]),
+  ],
+  providers: [CharacterDb],
+  exports: [CharacterDb],
 })
 export class InfrastructureModule {}

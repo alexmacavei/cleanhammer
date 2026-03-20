@@ -1,18 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Character } from '../../domain/character.model';
 import { CreateCharacterPort } from '../../usecases/create-character.usecase';
 import { ViewCharactersPort } from '../../usecases/view-characters.usecase';
 import { CharacterDismissalPort } from '../../usecases/dismiss-character.usecase';
 
-@Injectable()
 export class CharacterDb
   implements CreateCharacterPort, ViewCharactersPort, CharacterDismissalPort
 {
-  constructor(
-    @InjectModel('Character') private readonly characterModel: Model<Character>,
-  ) {}
+  constructor(private readonly characterModel: Model<Character>) {}
 
   createCharacter(character: Character) {
     const model = new this.characterModel(character);

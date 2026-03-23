@@ -1,19 +1,13 @@
 import { Model } from 'mongoose';
-import * as mongoose from 'mongoose';
 import { Character } from '../../domain/character.model';
 import { CreateCharacterPort } from '../../usecases/create-character.usecase';
 import { ViewCharactersPort } from '../../usecases/view-characters.usecase';
-import { characterSchema } from '../schemas/schemas';
+import { CharacterDismissalPort } from '../../usecases/dismiss-character.usecase';
 
-export class CharacterDb implements CreateCharacterPort, ViewCharactersPort {
-  private readonly characterModel: Model<Character>;
-
-  constructor() {
-    this.characterModel = mongoose.model<Character>(
-      'Character',
-      characterSchema,
-    );
-  }
+export class CharacterDb
+  implements CreateCharacterPort, ViewCharactersPort, CharacterDismissalPort
+{
+  constructor(private readonly characterModel: Model<Character>) {}
 
   createCharacter(character: Character) {
     const model = new this.characterModel(character);
@@ -22,5 +16,9 @@ export class CharacterDb implements CreateCharacterPort, ViewCharactersPort {
 
   viewCharacters() {
     return this.characterModel.find().exec();
+  }
+
+  dismissCharacter(character: Character) {
+    return this.characterModel.deleteOne({ name: character.name }).exec();
   }
 }

@@ -1,5 +1,8 @@
-import { NotAcceptableException } from '@nestjs/common';
-import { Character } from '../domain/character.model';
+import {
+  Character,
+  InsufficientGoldError,
+  ItemNotOwnedError,
+} from '../domain/character.model';
 import { Item } from '../domain/item.model';
 
 export interface SellItemForPricePort {
@@ -18,13 +21,15 @@ export class SellItemForPrice<T extends SellItemForPricePort> {
     itemOwnedByFromCharacter: Item,
   ): boolean {
     if (!fromCharacter.itemsOwned.includes(itemOwnedByFromCharacter)) {
-      throw new NotAcceptableException(
-        `Character ${fromCharacter.name} cannot sell what he doesn't own. Tried to sell item: ${itemOwnedByFromCharacter.name}`,
+      throw new ItemNotOwnedError(
+        fromCharacter.name,
+        itemOwnedByFromCharacter.name,
       );
     }
     if (toCharacter.goldOwned < itemOwnedByFromCharacter.worthInGold) {
-      throw new NotAcceptableException(
-        `Character ${toCharacter.name} does not have enough gold to buy ${itemOwnedByFromCharacter.name}`,
+      throw new InsufficientGoldError(
+        toCharacter.name,
+        itemOwnedByFromCharacter.name,
       );
     }
     return this.sellItemService.sellItem(

@@ -16,6 +16,24 @@ export class InvalidCharacterError extends Error {
   }
 }
 
+export class ItemNotOwnedError extends Error {
+  constructor(characterName: string, itemName: string) {
+    super(
+      `Character ${characterName} cannot sell what he doesn't own. Tried to sell item: ${itemName}`,
+    );
+    this.name = 'ItemNotOwnedError';
+  }
+}
+
+export class InsufficientGoldError extends Error {
+  constructor(characterName: string, itemName: string) {
+    super(
+      `Character ${characterName} does not have enough gold to buy ${itemName}`,
+    );
+    this.name = 'InsufficientGoldError';
+  }
+}
+
 export function isGreenskinWithAtLeastANonGreenskinFriend(
   character: Character,
 ) {

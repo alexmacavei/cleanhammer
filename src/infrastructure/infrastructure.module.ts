@@ -1,8 +1,22 @@
 import { Module } from '@nestjs/common';
-import { databaseProviders } from './database.providers';
+import { InjectModel, MongooseModule } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Character } from '../domain/character.model';
+import { CharacterDb } from './characters/character-db';
+import { characterSchema } from './schemas/schemas';
 
 @Module({
-  providers: [...databaseProviders],
-  exports: [...databaseProviders],
+  imports: [
+    MongooseModule.forFeature([{ name: 'Character', schema: characterSchema }]),
+  ],
+  providers: [
+    {
+      provide: CharacterDb,
+      useFactory: (characterModel: Model<Character>) =>
+        new CharacterDb(characterModel),
+      inject: [InjectModel('Character')],
+    },
+  ],
+  exports: [CharacterDb],
 })
 export class InfrastructureModule {}
